@@ -1,0 +1,107 @@
+#include "graph.hpp"
+
+#include <array>
+#include <functional>
+#include <string>
+#include <vector>
+
+#include <chrono>
+
+using std::chrono::duration_cast;
+using std::chrono::high_resolution_clock;
+using std::chrono::milliseconds;
+
+std::string bench_traverse(std::function<void()> traverse_fn)
+{
+    auto start = high_resolution_clock::now();
+    traverse_fn();
+    auto stop = high_resolution_clock::now();
+
+    // Subtract stop and start timepoints and cast it to required unit.
+    // Predefined units are nanoseconds, microseconds, milliseconds, seconds,
+    // minutes, hours. Use duration_cast() function.
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    // To get the value of duration use the count() member function on the
+    // duration object
+    return std::to_string(duration.count());
+}
+
+void full_bench(Graph& graph)
+{
+    int num_test = 5;
+    std::array<int, 5> num_threads { { 2, 4, 8, 16, 32 } };
+
+    std::vector<Graph::Node> visited(graph.size(), false);
+    Graph::Node src = 0;
+
+    // Explicitly disable dynamic teams as we are going to set a fixed number of
+    // threads
+    omp_set_dynamic(0);
+
+    // TODO: find a better way to avoid code repetition
+
+    std::cout << "Number of nodes: " << graph.size() << "\n\n";
+
+    for (int i = 0; i < num_test; i++) {
+        std::cout << "\t"
+                  << "Execution " << i + 1 << std::endl;
+
+        std::cout << "Iterative sequential DFS: "
+                  << bench_traverse([&] { graph.dfs(src, visited); })
+                  << "ms\n";
+
+        // We cannot pass a copy of the vector, so we "reset" it every time
+        std::fill(visited.begin(), visited.end(), false);
+
+        std::cout << "Recursive sequential DFS: "
+                  << bench_traverse([&]() { graph.rdfs(src, visited); })
+                  << "ms\n";
+
+        std::cout << "Dijkstra: "
+                << bench_traverse([&] { graph.dijkstra(0); })
+                << "ms\n";
+
+        for (const auto n : num_threads) {
+            std::fill(visited.begin(), visited.end(), false);
+
+            std::cout << "Using " << n << " threads..." << std::endl;
+
+            // Set to use N threads
+            omp_set_num_threads(n);
+
+            // Change this?
+            // graph.task_threshold = n;
+
+            std::cout << "Parallel iterative DFS: "
+                      << bench_traverse([&] { graph.p_dfs(src, visited); })
+                      << "ms\n";
+
+            std::fill(visited.begin(), visited.end(), false);
+
+            std::cout << "Parallel recursive DFS: "
+                      << bench_traverse([&] { graph.p_rdfs(src, visited); })
+                      << "ms\n";
+
+            std::cout << "Parallel Dijkstra: "
+                    << bench_traverse([&] { graph.p_dijkstra(0); })
+                    << "ms\n";
+        }
+
+        std::fill(visited.begin(), visited.end(), false);
+
+        std::cout << std::endl;
+    }
+}
+
+int main(int argc, const char** argv)
+{
+    // TODO: Add a CLI?
+
+    std::string input_file_path = "test_data/adj-20000-nodes.txt";
+    auto graph = import_graph(std::ifstream(input_file_path));
+
+    full_bench(graph);
+
+    return 0;
+}
