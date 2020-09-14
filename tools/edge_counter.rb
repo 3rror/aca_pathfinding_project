@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Count the number of edges in a adjancency matrix, saved in file
+
 filename = ARGV.first
 edges = 0
 nodes = 0
