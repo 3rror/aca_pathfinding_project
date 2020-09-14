@@ -47,14 +47,14 @@ void full_bench(Graph& graph)
         std::cout << "\t"
                   << "Execution " << i + 1 << std::endl;
 
-        std::cout << "Iterative sequential DFS: "
+        std::cout << "Sequential iterative DFS: "
                   << bench_traverse([&] { graph.dfs(src, visited); })
                   << "ms\n";
 
         // We cannot pass a copy of the vector, so we "reset" it every time
         std::fill(visited.begin(), visited.end(), false);
 
-        std::cout << "Recursive sequential DFS: "
+        std::cout << "Sequential recursive DFS: "
                   << bench_traverse([&]() { graph.rdfs(src, visited); })
                   << "ms\n";
 
