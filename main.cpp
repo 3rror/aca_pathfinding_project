@@ -29,8 +29,8 @@ std::string bench_traverse(std::function<void()> traverse_fn)
 
 void full_bench(Graph& graph)
 {
-    int num_test = 5;
-    std::array<int, 5> num_threads { { 2, 4, 8, 16, 32 } };
+    int num_test = 6;
+    std::array<int, 6> num_threads { {1, 2, 4, 8, 16, 32 } };
 
     std::vector<Graph::Node> visited(graph.size(), false);
     Graph::Node src = 0;
