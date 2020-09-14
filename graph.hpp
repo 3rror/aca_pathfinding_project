@@ -59,7 +59,7 @@ struct Graph {
     // Sequential implementation of the recursive version of depth first search.
     void rdfs(Node src, std::vector<int>& visited, int depth = 0)
     {
-            visited[src] = true;
+        visited[src] = true;
 
         for (int node = 0; node < n_nodes(); node++) {
             if (edge_exists(src, node) && !visited[node]) {
@@ -362,9 +362,14 @@ private:
 };
 
 // Import graph from a file
-Graph import_graph(std::ifstream file)
+Graph import_graph(std::string &path)
 {
     Graph graph;
+
+    std::ifstream file(path);
+    if (!file.is_open()) {
+        throw std::invalid_argument("Input file does not exist or is not readable.");
+    }
 
     std::string line;
 

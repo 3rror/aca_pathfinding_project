@@ -96,10 +96,15 @@ void full_bench(Graph& graph)
 
 int main(int argc, const char** argv)
 {
-    // TODO: Add a CLI?
+    // TODO: Add a CLI? Also, we should accept more input files and process them separately
+    if (argc < 2) {
+        std::cout << "Input file not specified.\n";
+        return 1;
+    }
 
-    std::string input_file_path = "test_data/adj-20000-nodes.txt";
-    auto graph = import_graph(std::ifstream(input_file_path));
+    std::string file_path = argv[1];
+
+    auto graph = import_graph(file_path);
 
     full_bench(graph);
 
