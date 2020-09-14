@@ -5,6 +5,8 @@
 
 # Graph settings
 sizes = (10, 50, 100, 500, 1000, 5000, 10000, 15000, 20000)
+
+# Make it reproducible
 seed = 0
 
 import random, numpy
