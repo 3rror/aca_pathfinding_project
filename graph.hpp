@@ -91,7 +91,7 @@ struct Graph {
 
                 #pragma omp parallel shared(queue, visited)
                 {
-                    // Every thread has a private_queue to avoid continuos lock
+                    // Every thread has a private_queue to avoid continuous lock
                     // checking to update the main one
                     std::vector<Node> private_queue;
 
