@@ -18,7 +18,7 @@ pip3 install numpy
 - Run adj_matrix_generator.py
 
 ```python
-python3 tools/adj_matrix_generator
+python3 tools/adj_matrix_generator.py
 ```
 
 ## Compile the source code
