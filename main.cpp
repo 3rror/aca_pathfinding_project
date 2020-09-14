@@ -70,7 +70,7 @@ void full_bench(Graph& graph)
             // Set to use N threads
             omp_set_num_threads(n);
 
-            // Change this?
+            // Should we change also this?
             // graph.task_threshold = n;
 
             std::cout << "Parallel iterative DFS: "
