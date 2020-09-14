@@ -39,7 +39,7 @@ make
 ## Execute the program
 
 ```sh
-build/aca_pathfinding adj-N-nodes.txt
+./aca_pathfinding adj-N-nodes.txt
 ```
 
 ## Authors
