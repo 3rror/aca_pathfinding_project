@@ -13,7 +13,6 @@ import random, numpy
 
 
 def rand_adj_matrix(n_nodes, oriented=False, max_weight=9):
-    # Make it reproducible
     random.seed(seed)
 
     # Use Numpy to speed up matrix creation and operations
@@ -40,3 +39,4 @@ if __name__ == "__main__":
     for size in sizes:
         adj = rand_adj_matrix(size)
         numpy.savetxt(f"adj-{size}-nodes.txt", adj, fmt="%2u")
+        print(f"Created adj-{size}-nodes.txt")
