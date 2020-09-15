@@ -215,6 +215,7 @@ struct Graph {
                     }
 
                 } else {
+                    // Fallback to parallel iterative version
                     p_dfs_with_locks(node, visited, node_locks);
                 }
             }
