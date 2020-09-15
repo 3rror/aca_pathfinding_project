@@ -198,8 +198,8 @@ struct Graph {
 
         for (int node = 0; node < n_nodes(); node++) {
             if (edge_exists(src, node) && !atomic_test_visited(node, visited, &node_locks[node])) {
-                // Limit the number of parallel tasks both horizzontally (for
-                // checking neightbors) and vertically (between recursive
+                // Limit the number of parallel tasks both horizontally (for
+                // checking neighbors) and vertically (between recursive
                 // calls).
                 //
                 // Fallback to sequentials version if one of these limits are
