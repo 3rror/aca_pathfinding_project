@@ -194,6 +194,7 @@ struct Graph {
     {
         atomic_set_visited(src, visited, &node_locks[src]);
 
+        // Number of tasks in parallel executing at this level of depth
         int task_count = 0;
 
         for (int node = 0; node < n_nodes(); node++) {
