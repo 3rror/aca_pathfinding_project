@@ -202,7 +202,7 @@ struct Graph {
                 // checking neighbors) and vertically (between recursive
                 // calls).
                 //
-                // Fallback to sequentials version if one of these limits are
+                // Fallback to iterative version if one of these limits are
                 // reached
                 if (depth <= max_depth_rdfs && task_count <= task_threshold) {
                     task_count++;
