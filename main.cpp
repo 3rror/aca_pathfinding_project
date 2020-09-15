@@ -58,9 +58,9 @@ void full_bench(Graph& graph)
                   << bench_traverse([&]() { graph.rdfs(src, visited); })
                   << "ms\n";
 
-        std::cout << "Dijkstra: "
-                << bench_traverse([&] { graph.dijkstra(0); })
-                << "ms\n";
+        // std::cout << "Dijkstra: "
+        //         << bench_traverse([&] { graph.dijkstra(0); })
+        //         << "ms\n";
 
         for (const auto n : num_threads) {
             std::fill(visited.begin(), visited.end(), false);
@@ -83,9 +83,9 @@ void full_bench(Graph& graph)
                       << bench_traverse([&] { graph.p_rdfs(src, visited); })
                       << "ms\n";
 
-            std::cout << "Parallel Dijkstra: "
-                    << bench_traverse([&] { graph.p_dijkstra(0); })
-                    << "ms\n";
+            // std::cout << "Parallel Dijkstra: "
+            //         << bench_traverse([&] { graph.p_dijkstra(0); })
+            //         << "ms\n";
         }
 
         std::fill(visited.begin(), visited.end(), false);
